@@ -2,8 +2,11 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Produto
 def cadastrar(request):
+    
     if request.method == "GET":
-     return render(request,'cadastrar.html')
+     status = request.GET.get('status')
+     return render(request,'cadastrar.html',{'status':status})
+    
     elif request.method == "POST":
      produto = request.POST.get('produto')
      preco = request.POST.get('preco')
@@ -15,4 +18,7 @@ def cadastrar(request):
          
      return redirect('/produtos/cadastrar?status=1')
      
-    
+
+def listar(request):
+  produtos = Produto.objects.all()
+  return render(request,'listar.html',{'produtos': produtos})
