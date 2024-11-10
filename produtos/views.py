@@ -22,3 +22,10 @@ def cadastrar(request):
 def listar(request):
   produtos = Produto.objects.all()
   return render(request,'listar.html',{'produtos': produtos})
+
+
+def excluir(request,id):
+  
+  produto = Produto.objects.get(id = id)
+  produto.delete()
+  return redirect('listar')
